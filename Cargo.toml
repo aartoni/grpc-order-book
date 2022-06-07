@@ -1,0 +1,7 @@
+[package]
+name = "grpc_order_book"
+version = "0.1.0"
+edition = "2021"
+authors = ["Alessio Artoni <alessio@artoni.org>"]
+
+[dependencies]
