@@ -31,7 +31,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 }
             },
             message = bitstamp_ws.next() => {
-                debug!("Got order book: {message:?}");
+                let message = message
+                    .unwrap_or(Err(ConnectionClosed));
+
+                if let Ok(message) = message {
+                    let message = bitstamp::parse(message);
+                    debug!("Got order book: {message:?}");
+                }
             }
         }
     }
