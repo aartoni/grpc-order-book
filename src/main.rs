@@ -1,7 +1,7 @@
 use std::error::Error;
 
 use futures_util::stream::StreamExt;
-use grpc_order_book::{binance, bitstamp, order_book::OrderBook};
+use grpc_order_book::{binance, bitstamp, multi_book::MultiBook};
 use log::debug;
 use tokio_tungstenite::tungstenite::Error::ConnectionClosed;
 
@@ -20,7 +20,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let mut bitstamp_ws = bitstamp::connect(&ticker).await?;
 
     // Create an order book
-    let mut order_book = OrderBook::new();
+    let mut order_book = MultiBook::new();
 
     loop {
         tokio::select! {
@@ -33,7 +33,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     debug!("Got order book: {message:?}");
 
                     if let Some(book) = message {
-                        order_book.merge_book("binance", book.into());
+                        order_book.insert("binance", book.into());
                     }
                 }
             },
