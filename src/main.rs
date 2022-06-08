@@ -12,6 +12,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .filter(None, log::LevelFilter::Debug)
         .init();
 
+    // Define the ticker
     let ticker = String::from("ethbtc");
     debug!("Current ticker: {ticker}");
 
@@ -22,6 +23,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     // Create an order book
     let mut order_book = MultiBook::new();
 
+    // Read messages from the web socket
     loop {
         tokio::select! {
             message = binance_ws.next() => {
