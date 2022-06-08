@@ -17,12 +17,12 @@ pub struct Data {
 
 #[derive(Deserialize, Debug)]
 pub struct Book {
-    bids: Vec<PriceLevel>,
-    asks: Vec<PriceLevel>,
+    pub bids: Vec<PriceLevel>,
+    pub asks: Vec<PriceLevel>,
 }
 
 #[derive(Deserialize, Debug)]
-pub struct PriceLevel(Decimal, Decimal);
+pub struct PriceLevel(pub Decimal, pub Decimal);
 
 pub async fn connect(symbol: &str) -> Result<WsStream, Box<dyn Error>> {
     let mut ws_stream = websocket::connect(BITSTAMP_ADDRESS).await?;

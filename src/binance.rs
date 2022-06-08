@@ -12,14 +12,14 @@ const BINANCE_ADDRESS: &str = "wss://stream.binance.com:9443/ws";
 #[serde(rename_all = "camelCase")]
 pub struct Book {
     last_update_id: usize,
-    bids: Vec<PriceLevel>,
-    asks: Vec<PriceLevel>,
+    pub bids: Vec<PriceLevel>,
+    pub asks: Vec<PriceLevel>,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct PriceLevel {
-    price: Decimal,
-    amount: Decimal,
+    pub price: Decimal,
+    pub amount: Decimal,
 }
 
 pub async fn connect(symbol: &str) -> Result<WsStream, Box<dyn Error>> {
