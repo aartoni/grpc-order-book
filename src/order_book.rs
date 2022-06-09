@@ -1,4 +1,3 @@
-use log::debug;
 use rust_decimal::Decimal;
 use serde::Deserialize;
 
@@ -18,8 +17,8 @@ impl OrderBook {
         }
     }
 
-    pub fn merge_book(&mut self, exchange: &str, book: Self) {
-        debug!("Merging book");
+    pub fn with_prices(bids: Vec<PriceLevel>, asks: Vec<PriceLevel>) -> Self {
+        Self { bids, asks }
     }
 }
 
